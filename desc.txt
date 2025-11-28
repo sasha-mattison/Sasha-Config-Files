@@ -1,0 +1,1 @@
+A collecton of various config files for programs I use daily
