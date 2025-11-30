@@ -64,3 +64,9 @@ updt() {
 clr() {
     clear
 }
+
+reload() {
+    clear
+    source ~/.zshrc
+    ff
+}
