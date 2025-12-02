@@ -59,6 +59,7 @@ mkd() {
 
 updt() {    
     sudo pacman -Syu
+    clr
 }
 
 clr() {
