@@ -14,6 +14,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Colors
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+YELLOW="\033[1;33m"
+RESET="\033[0m"
+
 # Check archlinux plugin commands here
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/archlinux
 
@@ -71,6 +77,7 @@ reload() {
     clear
     source ~/.zshrc
     ff
+    updt
 }
 
 foreverfetch() {
@@ -85,6 +92,63 @@ gitpk() {
     cd ~
     cd Documents
     cd GitHub
+}
+
+
+pm() {
+    action="$1"
+    shift  # drop the action, keep the args (pkgs)
+
+    case "$action" in
+
+        add|install)
+            if [ $# -eq 0 ]; then
+                echo -e "${YELLOW}Usage: pm add <pkg1> [pkg2...]${RESET}"
+                return 1
+            fi
+
+            sudo pacman -S "$@"
+            if [ $? -eq 0 ]; then
+                echo -e "${GREEN}✔ Successfully installed: $@${RESET}"
+            else
+                echo -e "${RED}✘ Failed to install: $@${RESET}"
+            fi
+            ;;
+
+        remove|rm)
+            if [ $# -eq 0 ]; then
+                echo -e "${YELLOW}Usage: pm remove <pkg1> [pkg2...]${RESET}"
+                return 1
+            fi
+
+            sudo pacman -R "$@"
+            if [ $? -eq 0 ]; then
+                echo -e "${GREEN}✔ Successfully removed: $@${RESET}"
+            else
+                echo -e "${RED}✘ Failed to remove: $@${RESET}"
+            fi
+            ;;
+
+        search|find)
+            if [ $# -eq 0 ]; then
+                echo -e "${YELLOW}Usage: pm search <term>${RESET}"
+                return 1
+            fi
+            pacman -Ss "$@"
+            ;;
+
+        info|help)
+            if [ $# -eq 0 ]; then
+                echo -e "${YELLOW}Usage: pm info|help <pkg>${RESET}"
+                return 1
+            fi
+            pacman -Qi "$@"
+            ;;
+
+        *)
+            echo -e "${YELLOW}Usage: pm {add|remove|search|info} <packages>${RESET}"
+            ;;
+    esac
 }
 
 ff
