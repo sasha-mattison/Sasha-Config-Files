@@ -81,5 +81,11 @@ foreverfetch() {
 done
 }
 
+gitpk() {
+    cd ~
+    cd Documents
+    cd GitHub
+}
+
 ff
-updt
+eval "$(starship init zsh)"
