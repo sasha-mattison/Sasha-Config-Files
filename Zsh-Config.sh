@@ -73,5 +73,13 @@ reload() {
     ff
 }
 
+foreverfetch() {
+    while true; do
+    clear
+    fastfetch
+    sleep 1
+done
+}
+
 ff
 updt
