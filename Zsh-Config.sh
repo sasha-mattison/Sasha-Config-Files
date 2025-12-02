@@ -63,6 +63,7 @@ updt() {
 
 clr() {
     clear
+    fastfetch
 }
 
 reload() {
