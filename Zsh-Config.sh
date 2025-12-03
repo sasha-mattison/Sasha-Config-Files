@@ -97,7 +97,7 @@ gitpk() {
 
 pm() {
     action="$1"
-    shift  # drop the action, keep the args (pkgs)
+    shift
 
     case "$action" in
 
