@@ -94,62 +94,78 @@ gitpk() {
     cd GitHub
 }
 
-
-pm() {
-    action="$1"
+_pm_do() {
+    local action="$1"
     shift
 
     case "$action" in
-
-        add|install)
-            if [ $# -eq 0 ]; then
-                echo -e "${YELLOW}Usage: pm add <pkg1> [pkg2...]${RESET}"
-                return 1
-            fi
-
+        install)
             sudo pacman -S "$@"
-            if [ $? -eq 0 ]; then
-                echo -e "${GREEN}✔ Successfully installed: $@${RESET}"
-            else
-                echo -e "${RED}✘ Failed to install: $@${RESET}"
-            fi
             ;;
-
-        remove|rm)
-            if [ $# -eq 0 ]; then
-                echo -e "${YELLOW}Usage: pm remove <pkg1> [pkg2...]${RESET}"
-                return 1
-            fi
-
+        remove)
             sudo pacman -R "$@"
-            if [ $? -eq 0 ]; then
-                echo -e "${GREEN}✔ Successfully removed: $@${RESET}"
-            else
-                echo -e "${RED}✘ Failed to remove: $@${RESET}"
-            fi
             ;;
-
-        search|find)
-            if [ $# -eq 0 ]; then
-                echo -e "${YELLOW}Usage: pm search <term>${RESET}"
-                return 1
-            fi
+        search)
             pacman -Ss "$@"
             ;;
-
-        info|help)
-            if [ $# -eq 0 ]; then
-                echo -e "${YELLOW}Usage: pm info|help <pkg>${RESET}"
-                return 1
-            fi
+        info)
             pacman -Qi "$@"
             ;;
-
         *)
-            echo -e "${YELLOW}Usage: pm {add|remove|search|info} <packages>${RESET}"
+            echo -e "${RED}Unknown pm action: $action${RESET}"
+            return 1
             ;;
     esac
 }
+
+add() {
+    if [ $# -eq 0 ]; then
+        echo -e "${YELLOW}Usage: add <pkg1> [pkg2...]${RESET}"
+        return 1
+    fi
+    if _pm_do install "$@"; then
+        echo -e "${GREEN}✔ Successfully installed: $@${RESET}"
+    else
+        echo -e "${RED}✘ Failed to install: $@${RESET}"
+    fi
+}
+
+install() { add "$@"; }
+
+remove() {
+    if [ $# -eq 0 ]; then
+        echo -e "${YELLOW}Usage: remove <pkg1> [pkg2...]${RESET}"
+        return 1
+    fi
+    if _pm_do remove "$@"; then
+        echo -e "${GREEN}✔ Successfully removed: $@${RESET}"
+    else
+        echo -e "${RED}✘ Failed to remove: $@${RESET}"
+    fi
+}
+
+rm() { remove "$@"; }
+
+search() {
+    if [ $# -eq 0 ]; then
+        echo -e "${YELLOW}Usage: search <term>${RESET}"
+        return 1
+    fi
+    _pm_do search "$@"
+}
+
+find() { search "$@"; }
+
+info() {
+    if [ $# -eq 0 ]; then
+        echo -e "${YELLOW}Usage: info <pkg>${RESET}"
+        return 1
+    fi
+    _pm_do info "$@"
+}
+
+help() { info "$@"; }
+
 
 ff
 eval "$(starship init zsh)"
