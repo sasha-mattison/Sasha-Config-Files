@@ -1,10 +1,32 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "logo": "arch",
+
+  "logo": {
+    "type": "builtin",
+    "color": {
+      "1": "#5DB7DE",
+      "2": "#5DB7DE",
+      "3": "#5DB7DE",
+      "4": "#5DB7DE",
+      "5": "#5DB7DE",
+      "6": "#5DB7DE",
+      "7": "#5DB7DE",
+      "8": "#5DB7DE",
+      "9": "#5DB7DE"
+    }
+  },
+
+  "keyColor": "#5DB7DE",
+  "valueColor": "#5DB7DE",
+
   "modules": [
     "title",
     "break",
-    {"type": "custom", "format": "===== 💻 Software ====="},
+    {
+      "type": "custom",
+      "format": "===== 💻 Software =====",
+      "color": "#5DB7DE"
+    },
     "os",
     "host",
     "kernel",
@@ -16,13 +38,16 @@
     "theme",
     "terminal",
     "break",
-    {"type": "custom", "format": "===== ⚙️ Hardware ====="},
+    {
+      "type": "custom",
+      "format": "===== ⚙️ Hardware =====",
+      "color": "#5DB7DE"
+    },
     "cpu",
     "gpu",
     "memory",
     "swap",
     "disk",
-    "localip",
     "battery",
     "poweradapter",
     "locale"
