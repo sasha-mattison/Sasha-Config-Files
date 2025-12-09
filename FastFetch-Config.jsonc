@@ -16,8 +16,8 @@
     }
   },
 
-  "keyColor": "#5DB7DE",
-  "valueColor": "#5DB7DE",
+  "keyColor": "#716a5c", // This sets the color for descriptors (keys) like 'CPU:', 'GPU:', etc.
+  "valueColor": "#a39b8b", // This sets the color for the information (values).
 
   "modules": [
     "title",
